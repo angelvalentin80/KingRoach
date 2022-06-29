@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="ParticlesMaterial" id=1]
+lifetime_randomness = 1.0
+flag_disable_z = true
+gravity = Vector3( 0, 200, 0 )
+initial_velocity = 480.99
+initial_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.6
+color = Color( 0.482353, 0.0901961, 0.0901961, 1 )
+
+[node name="EnemyBlood" type="Particles2D"]
+amount = 50
+lifetime = 0.1
+explosiveness = 1.0
+process_material = SubResource( 1 )

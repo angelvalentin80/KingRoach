@@ -1,0 +1,191 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Characters/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://Assets/heart red.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Fonts/KdamThmorPro-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/KingRoachBoostBorder1.png" type="Texture" id=5]
+[ext_resource path="res://Assets/KingRoachBoostProgression.png" type="Texture" id=6]
+[ext_resource path="res://Assets/KingRoachBoostUnder.png" type="Texture" id=7]
+[ext_resource path="res://Assets/king_roach_background.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Objects/king_roach_low_buildings.png" type="Texture" id=9]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 55.5, 7.5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 55.5, 8 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 56, 9 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 56, 9 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 160, 10 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 10, 100 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 180, 10 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 10, 100 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 15
+font_data = ExtResource( 4 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_vertical_guides_": [ -151.0 ]
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 8 )
+
+[node name="Player" type="Node" parent="."]
+
+[node name="Player" parent="Player" instance=ExtResource( 1 )]
+position = Vector2( 155, 95 )
+
+[node name="PlayerPos" type="Position2D" parent="."]
+position = Vector2( 155, 95 )
+
+[node name="BottomRightBuilding" type="Sprite" parent="."]
+position = Vector2( 264, 159 )
+texture = ExtResource( 9 )
+region_enabled = true
+region_rect = Rect2( 208, 138, 112, 42 )
+region_filter_clip = true
+
+[node name="BottomLeftBuilding" type="Sprite" parent="."]
+position = Vector2( 56, 159 )
+texture = ExtResource( 9 )
+region_enabled = true
+region_rect = Rect2( 0, 137, 112, 43 )
+
+[node name="Enemy_spawn_timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Hearts" type="Node" parent="."]
+
+[node name="Heart1" type="Sprite" parent="Hearts"]
+position = Vector2( 246, 170 )
+texture = ExtResource( 3 )
+
+[node name="Heart2" type="Sprite" parent="Hearts"]
+position = Vector2( 261.72, 170 )
+texture = ExtResource( 3 )
+
+[node name="Heart3" type="Sprite" parent="Hearts"]
+position = Vector2( 277.408, 170 )
+texture = ExtResource( 3 )
+
+[node name="Heart4" type="Sprite" parent="Hearts"]
+position = Vector2( 293.248, 170 )
+texture = ExtResource( 3 )
+
+[node name="Heart5" type="Sprite" parent="Hearts"]
+position = Vector2( 309, 170 )
+texture = ExtResource( 3 )
+
+[node name="BoostBar" type="TextureProgress" parent="."]
+margin_left = 9.0
+margin_top = 167.0
+margin_right = 134.0
+margin_bottom = 184.0
+rect_scale = Vector2( 0.886, 0.601 )
+step = 0.1
+value = 50.0
+texture_under = ExtResource( 7 )
+texture_over = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
+
+[node name="regenHeart" type="Area2D" parent="." groups=["heartRegen"]]
+position = Vector2( 35, -35 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="regenHeart"]
+texture = ExtResource( 3 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="regenHeart"]
+position = Vector2( -89, 38 )
+scale = Vector2( 1.00923, 0.996043 )
+polygon = PoolVector2Array( 84, -45, 80, -41, 80, -38, 87, -31, 88, -31, 95, -38, 95, -41, 91, -45 )
+
+[node name="environmentCollisions" type="Node" parent="."]
+
+[node name="ObjectCollisions" type="Node" parent="environmentCollisions"]
+
+[node name="TopLeftHouse" type="StaticBody2D" parent="environmentCollisions/ObjectCollisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="environmentCollisions/ObjectCollisions/TopLeftHouse"]
+position = Vector2( 55.5, 7.5 )
+shape = SubResource( 2 )
+
+[node name="TopRightHouse" type="StaticBody2D" parent="environmentCollisions/ObjectCollisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="environmentCollisions/ObjectCollisions/TopRightHouse"]
+position = Vector2( 264.5, 8 )
+shape = SubResource( 3 )
+
+[node name="BottomLeftHouse" type="StaticBody2D" parent="environmentCollisions/ObjectCollisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="environmentCollisions/ObjectCollisions/BottomLeftHouse"]
+position = Vector2( 56, 171 )
+shape = SubResource( 4 )
+
+[node name="BottomRightHouse" type="StaticBody2D" parent="environmentCollisions/ObjectCollisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="environmentCollisions/ObjectCollisions/BottomRightHouse"]
+position = Vector2( 264, 171 )
+shape = SubResource( 5 )
+
+[node name="WallCollisions" type="Node" parent="environmentCollisions"]
+
+[node name="Top Wall" type="StaticBody2D" parent="environmentCollisions/WallCollisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="environmentCollisions/WallCollisions/Top Wall"]
+position = Vector2( 160, -10 )
+shape = SubResource( 6 )
+
+[node name="Right Wall" type="StaticBody2D" parent="environmentCollisions/WallCollisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="environmentCollisions/WallCollisions/Right Wall"]
+position = Vector2( 330, 81 )
+shape = SubResource( 7 )
+
+[node name="Bottom Wall" type="StaticBody2D" parent="environmentCollisions/WallCollisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="environmentCollisions/WallCollisions/Bottom Wall"]
+position = Vector2( 160, 190 )
+shape = SubResource( 8 )
+
+[node name="Left Wall" type="StaticBody2D" parent="environmentCollisions/WallCollisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="environmentCollisions/WallCollisions/Left Wall"]
+position = Vector2( -10, 80 )
+shape = SubResource( 9 )
+
+[node name="Score" type="RichTextLabel" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -32.0
+margin_right = 104.0
+margin_bottom = 26.0
+size_flags_horizontal = 4
+custom_fonts/normal_font = SubResource( 1 )
+text = "Score: 0"
+
+[connection signal="timeout" from="Enemy_spawn_timer" to="." method="_on_Enemy_spawn_timer_timeout"]
